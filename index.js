@@ -100,13 +100,8 @@ window.addEventListener('DOMContentLoaded', () => {
 				var p = Number(sessionStorage.getItem(oName.value)) + 1;
 				sessionStorage.setItem(oName.value, p.toString());
 				oScore.innerText = p.toString()
-
-				// sessionStorage.setItem(xName.value, (Number(sessionStorage.xWins) + 1).toString());
-				// sessionStorage.oWins = (Number(sessionStorage.oWins) + 1).toString();
 			}
 
-			// sessionStorage.setItem(xName.value, sessionStorage.xWins);
-			// sessionStorage.setItem(oName.value, sessionStorage.oWins);
 			return;
 		}
 
@@ -152,7 +147,7 @@ window.addEventListener('DOMContentLoaded', () => {
 	{
 		playerDisplay.classList.remove(`player${currentPlayer}`);
 		currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
-		playerDisplay.innerText = currentPlayer === 'X' ? X.innerText : O.innerText;
+		playerDisplay.innerText = currentPlayer === 'X' ? xName.value : oName.value;
 		playerDisplay.classList.add(`player${currentPlayer}`);
 	}
 
@@ -204,6 +199,18 @@ window.addEventListener('DOMContentLoaded', () => {
 		oName.value = "Player 2";
 	}
 
+	const onXNameChange = (event) => 
+	{
+		X.innerText = event.target.value
+	}
+
+	const onONameChange = (event) => 
+	{
+		O.innerText = event.target.value
+	}
+
 	resetButton.addEventListener('click', resetBoard);
 	clearButton.addEventListener('click', clearCache);
+	xName.addEventListener('change', onXNameChange);
+	oName.addEventListener('change', onONameChange);
 });
