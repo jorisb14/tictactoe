@@ -4,9 +4,28 @@ window.addEventListener('DOMContentLoaded', () => {
 	const playerDisplay = document.querySelector('.display-player');
 	const resetButton = document.querySelector('#reset');
 	const announcer = document.querySelector('.announcer');
+	const clearButton = document.querySelector('#clear');
+
+	const xName = document.querySelector('#xName');
+	const oName = document.querySelector('#oName');
+	
+	if (xName.value == '')
+		xName.value = "Player 1"
+
+	if (oName.value == '')
+		oName.value = "Player 2"
 
 	const xScore = document.getElementById('xScore');
 	const oScore = document.getElementById('oScore');
+
+	if (xScore.innerText == '')
+		xScore.innerText = "0"
+
+	if (oScore.innerText == '')
+		oScore.innerText = "0"
+
+	xScore.innerText = sessionStorage.getItem(xName.value)
+	oScore.innerText = sessionStorage.getItem(oName.value)
 
 	let board = ['', '', '', '', '', '', '', '', ''];
 	let currentPlayer = 'X';
@@ -48,41 +67,56 @@ window.addEventListener('DOMContentLoaded', () => {
 
 		if (roundWon)
 		{
-			announce(currentPlayer === 'X' ? PLAYERX_WON : PLAYERO_WON);
+			var ptw = ''
+
+			if (currentPlayer === 'X')
+			{
+				ptw = xName.value
+			}
+			else
+			{
+				ptw = oName.value
+			}
+
+			announce(currentPlayer === 'X' ? PLAYERX_WON : PLAYERO_WON, ptw);
 			isGameActive = false;
 
 			if (currentPlayer === 'X')
 			{
-				sessionStorage.xWins = (Number(sessionStorage.xWins) + 1).toString();
+				var p = Number(sessionStorage.getItem(xName.value)) + 1;
+				sessionStorage.setItem(xName.value, p.toString());
+				xScore.innerText = p.toString()
 			}
 			else
 			{
-				sessionStorage.oWins = (Number(sessionStorage.oWins) + 1).toString();
+				var p = Number(sessionStorage.getItem(oName.value)) + 1;
+				sessionStorage.setItem(oName.value, p.toString());
+				oScore.innerText = p.toString()
+
+				// sessionStorage.setItem(xName.value, (Number(sessionStorage.xWins) + 1).toString());
+				// sessionStorage.oWins = (Number(sessionStorage.oWins) + 1).toString();
 			}
 
-			xScore.innerText = sessionStorage.xWins
-			oScore.innerText = sessionStorage.oWins
-			sessionStorage.setItem("x", sessionStorage.xWins);
-			sessionStorage.setItem("o", sessionStorage.oWins);
-
+			// sessionStorage.setItem(xName.value, sessionStorage.xWins);
+			// sessionStorage.setItem(oName.value, sessionStorage.oWins);
 			return;
 		}
 
 		if (!board.includes(''))
 		{
-			announce(TIE);
+			announce(TIE, '');
 		}
 	}
 
-	const announce = (type) =>
+	const announce = (type, playerName) =>
 	{
 		switch(type)
 		{
 			case PLAYERO_WON:
-				announcer.innerHTML = 'Player <span class="playerO">O</span> Won';
+				announcer.innerHTML = 'Player <span class="playerO">' + playerName + '</span> Won';
 				break;
 			case PLAYERX_WON:
-				announcer.innerHTML = 'Player <span class="playerX">X</span> Won';
+				announcer.innerHTML = 'Player <span class="playerX">' + playerName + '</span> Won';
 				break;
 			case TIE:
 				announcer.innerText = 'Tie';
@@ -150,5 +184,18 @@ window.addEventListener('DOMContentLoaded', () => {
 		cell.addEventListener('click', () => userAction(cell, index));
 	});
 
+	const clearCache = () =>
+	{
+		sessionStorage.setItem(xName.value, "0");
+		sessionStorage.setItem(oName.value, "0");
+
+		xScore.innerText = "0";
+		oScore.innerText = "0";
+
+		xName.value = "Player 1";
+		oName.value = "Player 2";
+	}
+
 	resetButton.addEventListener('click', resetBoard);
+	clearButton.addEventListener('click', clearCache);
 });

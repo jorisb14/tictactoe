@@ -7,6 +7,10 @@
     font-family: 'Poppins', cursive;
 }
 
+body {
+    background-color: #071924;
+}
+
 .background {
     background-color: #071924;
     height: 100vh;
@@ -14,11 +18,11 @@
 }
 
 .rtitle {
-    color: #c30909;
+    color: #49fb93;
 }
 
 .ltitle {
-    color: #49fb93;
+    color: #c30909;
 }
 
 .title {
@@ -101,10 +105,47 @@
     cursor: pointer;
 }
 
+#xName {
+    color: white;
+    padding: 8px;
+    border-radius: 8px;
+    border: none;
+    font-size: 20px;
+    margin-left: 1em;
+    cursor: pointer;
+    background-color: #c30909;
+    width: 200px;
+    height: 50px;
+    margin-bottom: 10px;
+}
+
+#oName {
+    color: white;
+    padding: 8px;
+    border-radius: 8px;
+    border: none;
+    font-size: 20px;
+    margin-left: 1em;
+    cursor: pointer;
+    background-color: #49fb93;
+    width: 200px;
+    height: 50px;
+    margin-bottom: 10px;
+}
+
+.buttonS {
+    display: flex;
+    justify-content: center;
+}
+
 .restart {
     background-color: #c30909;
 }
 
 #reset {
     background-color: #c30909;
+}
+
+#clear {
+    background-color: #49fb93;
 }
