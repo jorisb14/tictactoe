@@ -24,8 +24,16 @@ window.addEventListener('DOMContentLoaded', () => {
 	if (oScore.innerText == '')
 		oScore.innerText = "0"
 
+	const X = document.querySelector('.x');
+	const O = document.querySelector('.o');
+
+	X.innerText = xName.value
+	O.innerText = oName.value
+
 	xScore.innerText = sessionStorage.getItem(xName.value)
 	oScore.innerText = sessionStorage.getItem(oName.value)
+
+	playerDisplay.innerText = X.innerText;
 
 	let board = ['', '', '', '', '', '', '', '', ''];
 	let currentPlayer = 'X';
@@ -144,7 +152,7 @@ window.addEventListener('DOMContentLoaded', () => {
 	{
 		playerDisplay.classList.remove(`player${currentPlayer}`);
 		currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
-		playerDisplay.innerText = currentPlayer;
+		playerDisplay.innerText = currentPlayer === 'X' ? X.innerText : O.innerText;
 		playerDisplay.classList.add(`player${currentPlayer}`);
 	}
 
